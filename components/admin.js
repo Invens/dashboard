@@ -14,7 +14,7 @@ const Admin = () => {
 
   useEffect(() => {
     // Fetch chatbots on page load
-    axios.get("https://api.coupleup.in/api/chatbots").then((res) => setChatbots(res.data));
+    axios.get("https://api.couplenxt.com/api/chatbots").then((res) => setChatbots(res.data));
   }, []);
 
   const handleFileChange = (e) => {
@@ -30,7 +30,7 @@ const Admin = () => {
 
     if (editingBotId) {
       // Edit existing bot
-      await axios.put(`https://api.coupleup.in/api/chatbots/${editingBotId}`, formData);
+      await axios.put(`https://api.couplenxt.com/api/chatbots/${editingBotId}`, formData);
       setChatbots(
         chatbots.map((bot) =>
           bot.id === editingBotId
@@ -41,7 +41,7 @@ const Admin = () => {
       setEditingBotId(null);
     } else {
       // Add new bot
-      const res = await axios.post("https://api.coupleup.in/api/chatbots", formData);
+      const res = await axios.post("https://api.couplenxt.com/api/chatbots", formData);
       setChatbots([...chatbots, res.data]);
     }
 
@@ -56,7 +56,7 @@ const Admin = () => {
     formData.append("image", newBot.image);
   
     try {
-      await axios.patch(`https://api.coupleup.in/api/chatbots/${id}/image`, formData, {
+      await axios.patch(`https://api.couplenxt.com/api/chatbots/${id}/image`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -80,7 +80,7 @@ const Admin = () => {
   
 
   const handleActivation = async (id, active) => {
-    await axios.patch(`https://api.coupleup.in/api/chatbots/${id}/active`, { active });
+    await axios.patch(`https://api.couplenxt.com/api/chatbots/${id}/active`, { active });
     setChatbots(
       chatbots.map((bot) =>
         bot.id === id ? { ...bot, active } : bot
